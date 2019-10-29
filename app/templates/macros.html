@@ -14,3 +14,18 @@
 
     {% endfor %}
 {% endmacro %}
+
+{% macro displayArticles(article_list) %}
+  {% for articles in article_list %}
+  <div class="col-md-12">
+    <div class="well">
+      <div class="row">
+        <div></div>
+        <p>{{articles.name|upper}}</p></a>
+        <div class="col-md-10 col-sm-12">
+            <h3>{{articles.content}}</h3>
+              <h4>  <span><a href=" {{url_for('.view_articles',id=articles.id)}}">Read comments</a></span>  </h4>
+
+            <a href=" {{url_for('.post_comment',id=articles.id)}}"><h4>COMMENT</h4></a>
+        </div>
+        </div>
