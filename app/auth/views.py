@@ -29,7 +29,7 @@ def register():
         user = User(email = form.email.data, username = form.username.data, password = form.password.data)
         db.session.add(user)
         db.session.commit()
-        mail_message("Welcome to blogiesboard","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to Strike out application","email/welcome_user",user.email,user=user)
             
         return redirect(url_for('.login'))
         flash('Succesfully register please proceed to login')
