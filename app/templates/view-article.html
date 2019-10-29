@@ -1,10 +1,10 @@
-{% comment %} <style>
+<style>
   body {
     background-image: url(https://images.pexels.com/photos/2437299/pexels-photo-2437299.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
     background-repeat: no-repeat;
     background-size: cover;
   }
-</style> {% endcomment %}
+</style>
 {% extends 'base.html' %}
  {% import 'macros.html' as macro%}
 
@@ -18,7 +18,7 @@
      <div class="col-md-12">
         <p class="text-left"><a class="btn btn-primary" href="{{url_for('.new_article',id=articles.category_id)}}">Post Blog</a></p>
         <div class="well" style="background-color:aquamarine">
-          <h3>{{article.content}}</h3>
+          <h3>{{arti.content}}</h3>
         </div>
 
 <!--end of content block-->
