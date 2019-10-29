@@ -21,3 +21,22 @@ def login():
         session.permanent = True
     title = "Login"
     return render_template('auth/login.html', title = title, login_form = login_form)
+
+@auth.route('/register', methods = ["GET", "POST"])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email = form.email.data, username = form.username.data, password = form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        mail_message("Welcome to blogiesboard","email/welcome_user",user.email,user=user)
+            
+        return redirect(url_for('.login'))
+        flash('Succesfully register please proceed to login')
+    title = "New Account created"
+    return render_template('auth/register.html', title = title, registration_form = form)
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))
