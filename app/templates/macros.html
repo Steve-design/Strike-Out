@@ -29,3 +29,19 @@
             <a href=" {{url_for('.post_comment',id=articles.id)}}"><h4>COMMENT</h4></a>
         </div>
         </div>
+    </HISTORY> ..
+
+</div>
+{% endfor %}
+{% endmacro %}
+
+
+{% macro displaySpecificArticles(specific_articles_list) %}
+{% for comment in specific_articles_list %}
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+      <hr>
+      <p style="color:black; font-size: bold;">{{comment.opinion}} </p>
+       <p style="text-align:right; color:black; font-size:10px;">{{comment.time_posted.strftime('%Y/%m/%d || %r') }}</p>
+  </div>
+{% endfor %}
+{% endmacro %}
