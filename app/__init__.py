@@ -28,3 +28,9 @@ def create_app(config_name):
      app.config.from_object(config_options[config_name])
 
     configure_uploads(app, photos)
+
+     bootstrap.init_app(app)
+    db.init_app(app)
+    login_manager.init_app(app)
+    mail.init_app(app)
+    simple.init_app(app)
