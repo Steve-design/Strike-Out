@@ -7,3 +7,9 @@ from ..import db,photos
 import markdown2
 from ..email import mail_message
 from ..requests import get_quotes
+
+@main.route('/')
+def index():
+    posts = Post.query.order_by(Post.date_posted.desc()).all()
+    quotes = get_quotes()
+    return render_template('index.html', quotes=quotes, posts=posts)
