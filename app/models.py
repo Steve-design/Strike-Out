@@ -159,3 +159,13 @@ class DownVote(db.Model):
         
     def __repr__(self):
         return f'{self.id_user}:{self.article_id}'
+
+class Quotes():
+    """
+    class to display random quotes
+    """      
+
+    def __init__(self,author,quote,permalink):
+        self.author = author
+        self.quote = quote
+        self.permalink = permalink          
