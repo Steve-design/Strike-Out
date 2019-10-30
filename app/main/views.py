@@ -112,3 +112,22 @@ def like(id):
     like_article.save_vote()
 
     return redirect(url_for('main.view_articles',id=id))
+
+@main.route('/home/dislike/<int:id>', methods = ['GET','POST'])
+@login_required
+def dislike(id):
+    get_article = DownVote.get_downvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+
+    for get_article in get_article:
+        to_str = f'{get_article}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.view_articles',id=id))
+        else:
+            continue
+
+    dislike_article = DownVote( blog_id=id)
+    dislike_article.save_vote()
+
+    return redirect(url_for('main.view_article',id=id))    
