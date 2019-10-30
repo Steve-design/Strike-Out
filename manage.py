@@ -1,3 +1,4 @@
+
 from app import create_app, db
 from app.models import User, Comments, Article, UpVote,DownVote, ArticleCategory, Quote
 from flask_script import Manager,Server
@@ -25,3 +26,4 @@ def make_shell_context():
 
 if __name__=='__main__':
     manager.run()    
+
