@@ -7,6 +7,10 @@ from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_sqlalchemy import SQLAlchemy
 from flask_simplemde import SimpleMDE
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 simple = SimpleMDE()
 
 photos = UploadSet('photos',IMAGES)
@@ -19,12 +23,20 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 
 def create_app(config_name):
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     app = Flask(__name__)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> master
     app.config.from_object(config_options[config_name])
 
     configure_uploads(app, photos)
@@ -35,10 +47,17 @@ def create_app(config_name):
     mail.init_app(app)
     simple.init_app(app)
 
+<<<<<<< HEAD
       # Registering the blueprint
+=======
+    # Registering the blueprint
+>>>>>>> master
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
 
     return app
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
