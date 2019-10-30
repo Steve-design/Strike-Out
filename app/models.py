@@ -68,4 +68,30 @@ class ArticleCategory(db.Model):
     @classmethod
     def get_categories(cls):
         categories = ArticleCategory.query.all()
-        return categories        
+        return categories  
+
+class Article(db.Model):
+    """ List of articles in each category """
+
+    __tablename__ = 'articles'
+
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String)
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comment = db.relationship("Comments", backref="article1", lazy="dynamic")
+
+    def save_article(self):
+        ''' Save the blocks '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def clear_(cls):
+        Article.all_articles.clear()
+
+    # display articles
+
+    def get_articles(id):
+        articles = Article.query.filter_by(category_id=id).all()
+        return articles             
