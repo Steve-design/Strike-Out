@@ -55,4 +55,22 @@ def new_category():
         return redirect(url_for('.index'))
 
     title = 'New category'
-    return render_template('new_category.html', category_form = form,title=title)          
+    return render_template('new_category.html', category_form = form,title=title) 
+
+@main.route('/view-articles/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_articles(id):
+    '''
+    Function the returns a single article for comment to be added
+    '''
+    print(id)
+    articles = Article.query.get(id)
+
+
+    if articles is None:
+        abort(404)
+    #
+    comment = Comments.get_comments(id)
+    up_likes = UpVote.get_votes(id)
+    down_likes = DownVote.get_downvotes(id)
+    return render_template('view-article.html', articles=articles, comment=comment, category_id=id,likes=up_likes,dislike=down_likes)             
