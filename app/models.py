@@ -12,3 +12,12 @@ def load_user(user_id):
     Function queries the database and gets a user's id as a response
     '''
     return User.query.get(int(user_id))
+
+class Quote:
+    '''
+    Quote class to define Quote Objects
+    '''
+
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote
