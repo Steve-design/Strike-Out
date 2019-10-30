@@ -95,3 +95,29 @@ class Article(db.Model):
     def get_articles(id):
         articles = Article.query.filter_by(category_id=id).all()
         return articles             
+
+
+class Comments(db.Model):
+    '''User comment model for each article '''
+
+    __tablename__ = 'comments'
+
+    # add columns
+    id = db.Column(db. Integer, primary_key=True)
+    opinion = db.Column(db.String(255))
+    time_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    articles_id = db.Column(db.Integer, db.ForeignKey("articles.id"))
+
+    def save_comment(self):
+        '''
+        Save the Comments/comments per article
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(self, id):
+        comment = Comments.query.order_by(
+        Comments.time_posted.desc()).filter_by(articles_id=id).all()
+        return comment
