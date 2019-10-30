@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://nancy:pull@localhost/pitch'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://nancy:pull@localhost/health'
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOADED_PHOTOS_DEST ='app/static/photos'
@@ -30,3 +30,15 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     DEBUG =  True        
+
+class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://nancy:pull@localhost/health'
+
+    '''
+    
+    Development  configuration child class
+    Args:
+        Config: The parent configuration class with General configuration settings
+    '''
+
+    DEBUG = True
