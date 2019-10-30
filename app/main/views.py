@@ -18,22 +18,23 @@ def index():
     title = 'Home- Welcome'
     return render_template('index.html', title = title, categories=category, quote=quote)
 
-@main.route('/user/<uname>')
-def profile(uname):
-    user = User.query.filter_by(username = uname).first()
 
-    if user is None:
+@main.route('/category/new-article/<int:id>', methods=['GET', 'POST'])
+@login_required
+def new_article(id):
+    ''' Function to check Blogs form and fetch data from the fields '''
+    form = ArticleForm()
+    category = ArticleCategory.query.filter_by(id=id).first()
+
+    if category is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user)  
+    if form.validate_on_submit():
+        content= form.content.data
+        new_article= Article(content=content,category_id= category.id)
+        new_article.save_blog()
+        return redirect(url_for('.category', id=category.id))
 
-@main.route('/user/<uname>/update/pic',methods= ['POST'])
-@login_required
-def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
-    if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        db.session.commit()
-    return redirect(url_for('main.profile',uname=uname))    
+ 
+
+    return render_template('new_article.html', article_form=form, category=category)       
