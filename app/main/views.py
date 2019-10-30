@@ -74,3 +74,22 @@ def view_articles(id):
     up_likes = UpVote.get_votes(id)
     down_likes = DownVote.get_downvotes(id)
     return render_template('view-article.html', articles=articles, comment=comment, category_id=id,likes=up_likes,dislike=down_likes)             
+
+@main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
+@login_required
+def post_comment(id):
+    ''' function to post comments '''
+    form = CommentForm()
+    title = 'post comment'
+    articles = Blog.query.filter_by(id=id).first()
+
+    if articles is None:
+         abort(404)
+
+    if form.validate_on_submit():
+        opinion = form.opinion.data
+        new_comment = Comments(opinion=opinion, articles_id=articles.id)
+        new_comment.save_comment()
+        return redirect(url_for('.view_artilces', id=artilces.id))
+
+    return render_template('post_comment.html', comment_form=form, title=title)
