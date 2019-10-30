@@ -93,3 +93,22 @@ def post_comment(id):
         return redirect(url_for('.view_artilces', id=artilces.id))
 
     return render_template('post_comment.html', comment_form=form, title=title)
+
+@main.route('/home/like/<int:id>', methods = ['GET','POST'])
+@login_required
+def like(id):
+    get_article = UpVote.get_votes(id)
+    valid_string = f'{current_user.id}:{id}'
+
+    for get_article in get_article:
+        to_str = f'{get_article}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.view_articles',id=id))
+        else:
+            continue
+
+    like_article = UpVote( blog_id=id)
+    like_article.save_vote()
+
+    return redirect(url_for('main.view_articles',id=id))
