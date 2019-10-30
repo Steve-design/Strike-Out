@@ -21,3 +21,26 @@ class Quote:
     def __init__(self, author, quote):
         self.author = author
         self.quote = quote
+
+
+class User(UserMixin, db.Model):
+    """ class modelling the users """
+
+    __tablename__ = 'users'
+
+    # create the columns
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255))
+    email = db.Column(db.String(255), unique=True, index=True)
+    password_hash = db.Column(db.String(255))
+    pass_secure = db.Column(db.String(255))
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
+    categories = db.relationship("Article", backref="user1", lazy="dynamic")
+    comment = db.relationship("Comments", backref="user2", lazy="dynamic")
+    upvotes = db.relationship("UpVote", backref="article2", lazy="dynamic")
+    downvotes = db.relationship("DownVote", backref="article2", lazy="dynamic")
+
+    @property
+    def password(self):
+        raise AttributeError('You can not read the password Attribute')
