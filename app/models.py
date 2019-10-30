@@ -121,3 +121,22 @@ class Comments(db.Model):
         comment = Comments.query.order_by(
         Comments.time_posted.desc()).filter_by(articles_id=id).all()
         return comment
+
+class UpVote(db.Model):
+    __tablename__ = 'upvotes'
+
+    id = db.Column(db.Integer,primary_key=True)
+    id_user = db.Column(db.Integer,db.ForeignKey('users.id'))
+    article_id = db.Column(db.Integer)
+
+    def save_vote(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    @classmethod
+    def get_votes(cls,id):
+        upvote = UpVote.query.filter_by(article_id=id).all()
+        return upvote
+    
+    def __repr__(self):
+        return f'{self.id_user}:{self.article_id}'        
