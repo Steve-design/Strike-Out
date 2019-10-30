@@ -1,12 +1,12 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required, current_user
-from .forms import ReviewForm,CategoryForm,CommentForm,BlogForm
+from .forms import ReviewForm,CategoryForm,CommentForm,ArticleForm
 from ..models import ArticleCategory,Article,Comments,UpVote,DownVote
 # from ..models import Review
 # Review = review.Review
 #display categories on the landing page
-from ..request import get_quote
+from ..requests import get_quote
 
 @main.route('/')
 def index():
