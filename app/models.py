@@ -50,3 +50,22 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class ArticleCategory(db.Model):
+
+    __tablename__ = 'categories'
+
+    # table columns
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    description = db.Column(db.String(255))
+
+    # save articles
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_categories(cls):
+        categories = ArticleCategory.query.all()
+        return categories        
