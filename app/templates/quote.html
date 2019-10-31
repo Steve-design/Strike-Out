@@ -23,15 +23,16 @@
     }
     p{
         font-size: x-large;
+        color:black;
     }
 </style>
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="container" style="color: black;">
 <blockquote>
     <h2>{{quote.author}}</h2>
     <hr>
-    <p>~{{quote.quote}}</p>
+    <p>{{quote.quote}}</p>
 </blockquote>
 </div>
 
