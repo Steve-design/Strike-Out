@@ -19,10 +19,12 @@ def index():
     return render_template('index.html', title = title, categories=category, quote=quote)
 
 
-@main.route('/category/new-article/<int:id>', methods=['GET', 'POST'])
+
+
+@main.route('/category/new_article/<int:id>', methods=['GET', 'POST'])
 @login_required
 def new_article(id):
-    ''' Function to check Blogs form and fetch data from the fields '''
+    ''' Function to check Articles form and fetch data from the fields '''
     form = ArticleForm()
     category = ArticleCategory.query.filter_by(id=id).first()
 
@@ -32,12 +34,21 @@ def new_article(id):
     if form.validate_on_submit():
         content= form.content.data
         new_article= Article(content=content,category_id= category.id)
-        new_article.save_blog()
+        new_article.save_article()
         return redirect(url_for('.category', id=category.id))
 
  
 
-    return render_template('new_article.html', article_form=form, category=category) 
+    return render_template('new_article.html', article_form=form, category=category)
+
+@main.route('/categories/<int:id>')
+def category(id):
+    category = ArticleCategory.query.get(id)
+    if category is None:
+        abort(404)
+
+    articles=Article.get_articles(id)
+    return render_template('category.html', articles=articles, category=category)
 
 @main.route('/add/category', methods=['GET','POST'])
 @login_required
@@ -55,7 +66,9 @@ def new_category():
         return redirect(url_for('.index'))
 
     title = 'New category'
-    return render_template('new-category.html', category_form = form,title=title) 
+    return render_template('new_category.html', category_form = form,title=title)
+
+
 
 @main.route('/view-articles/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -73,7 +86,8 @@ def view_articles(id):
     comment = Comments.get_comments(id)
     up_likes = UpVote.get_votes(id)
     down_likes = DownVote.get_downvotes(id)
-    return render_template('view-article.html', articles=articles, comment=comment, category_id=id,likes=up_likes,dislike=down_likes)             
+    return render_template('view_article.html', articles=articles, comment=comment, category_id=id,likes=up_likes,dislike=down_likes)
+
 
 @main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -81,7 +95,7 @@ def post_comment(id):
     ''' function to post comments '''
     form = CommentForm()
     title = 'post comment'
-    articles = Blog.query.filter_by(id=id).first()
+    articles = Article.query.filter_by(id=id).first()
 
     if articles is None:
          abort(404)
@@ -90,7 +104,7 @@ def post_comment(id):
         opinion = form.opinion.data
         new_comment = Comments(opinion=opinion, articles_id=articles.id)
         new_comment.save_comment()
-        return redirect(url_for('.view_artilces', id=artilces.id))
+        return redirect(url_for('.view_articles', id=articles.id))
 
     return render_template('post_comment.html', comment_form=form, title=title)
 
@@ -108,7 +122,7 @@ def like(id):
         else:
             continue
 
-    like_article = UpVote( blog_id=id)
+    like_article = UpVote( article_id=id)
     like_article.save_vote()
 
     return redirect(url_for('main.view_articles',id=id))
@@ -127,7 +141,7 @@ def dislike(id):
         else:
             continue
 
-    dislike_article = DownVote( blog_id=id)
+    dislike_article = DownVote( article_id=id)
     dislike_article.save_vote()
 
-    return redirect(url_for('main.view_article',id=id))    
+    return redirect(url_for('main.view_articles',id=id))    

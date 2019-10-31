@@ -16,31 +16,31 @@
 {% block content %}
 <div class="container">
      <div class="col-md-12">
-        <p class="text-left"><a class="btn btn-primary" href="{{url_for('.new_article',id=articles.category_id)}}">Post Blog</a></p>
+        <p class="text-left"><a class="btn btn-primary" href="{{url_for('.new_article',id=articles.category_id)}}">Post Article</a></p>
         <div class="well" style="background-color:aquamarine">
-          <h3>{{arti.content}}</h3>
+          <h3>{{articles.content}}</h3>
         </div>
 
 <!--end of content block-->
 <ul class="list-inline">
   <li class="list-inline-item">{{likes|length}}</li>
-  <li class="list-inline-item"><a class="btn btn-warning" href="{{url_for('main.like',id=blogs.id)}}">Like<i class="fa fa-thumbs-up fa-2x"></i></a></li>
+  <li class="list-inline-item"><a class="btn btn-warning" href="{{url_for('main.like',id = articles.id)}}">Like<i class="fa fa-thumbs-up fa-2x"></i></a></li>
     <li class="list-inline-item"><a class="btn btn-primary" href="#">Delete<i class="fa fa-thumbs-down fa-2x"></i> </a></li>
-  <li class="list-inline-item"><a class="btn btn-warning" href="{{url_for('main.dislike',id=blogs.id)}}">Dislike<i class="fa fa-thumbs-down fa-2x"></i> </a></li>
+  <li class="list-inline-item"><a class="btn btn-warning" href="{{url_for('main.dislike',id= articles.id)}}">Dislike<i class="fa fa-thumbs-down fa-2x"></i> </a></li>
   <li class="list-inline-item">{{dislike|length}}</li>
 <!-- comments block -->
 
         <div class="col-md-6 col-offset-1">
           <table>
             <tr>
-              <td><h4 class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{url_for('.post_comment',id=blogs.id)}}"> Add your comment</a></h4></td>
+              <td><h4 class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="{{url_for('.post_comment',id=articles.id)}}"> Add your comment</a></h4></td>
             </tr>
              
             
           </table>
 
          {% if comment %}
-         {{ macro.displaySpecificarticle(comment)}}
+         {{ macro.displaySpecificArticles(comment)}}
          <hr>
          {%else%}
          <h3 class="text-center" style="color:black; font-size: bold;">No comments </h3>
