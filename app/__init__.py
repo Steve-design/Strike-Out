@@ -24,7 +24,7 @@ def create_app(config_name):
 
 
     app.config.from_object(config_options[config_name])
-
+    app.config['SECRET_KEY'] = '1234'
     configure_uploads(app, photos)
 
     bootstrap.init_app(app)
