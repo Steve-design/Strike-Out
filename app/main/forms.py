@@ -26,5 +26,6 @@ class ArticleForm(FlaskForm):
     '''
     Class to create a wtf form for creating a pitch
     '''
+    title = TextAreaField('Title.')
     content = TextAreaField('YOUR ARTICLE')
     submit = SubmitField('CREATE')
