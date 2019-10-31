@@ -55,7 +55,7 @@ def new_category():
         return redirect(url_for('.index'))
 
     title = 'New category'
-    return render_template('new_category.html', category_form = form,title=title) 
+    return render_template('new-category.html', category_form = form,title=title) 
 
 @main.route('/view-articles/<int:id>', methods=['GET', 'POST'])
 @login_required
