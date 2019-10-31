@@ -29,3 +29,17 @@ class TestArticles(unittest.TestCase):
        '''
        test_init test case to test if the object is initialized properly
        ''' 
+       self.assertEqual(self.new_article.id,"1")
+       self.assertEqual(self.new_article.content,"be yourself")
+       self.assertEqual(self.new_article.category_id,"2")
+       self.assertEqual(self.new_article.user_id,"10")
+
+    def test_save_article(self):
+       '''
+       test_save_article test case to test if the article object is saved
+       '''
+    self.new_article.save_article()
+    self.assertEqual(len(Article.article_list),1)
+
+if __name__ == '__main__':
+   unittest.main() 
