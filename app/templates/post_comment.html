@@ -1,0 +1,20 @@
+<style>
+  body {
+    background-image: url(https://cdn.pixabay.com/photo/2017/08/05/22/43/newspaper-2586311__340.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+
+{% extends 'base.html' %}
+ {% import 'bootstrap/wtf.html' as wtf %}
+  {%block styles%}
+   {{ super() }}
+{%endblock%}
+
+{% block content %}
+<div class="container">
+  {{wtf.quick_form(comment_form)}}
+</div>
+{% endblock %}
