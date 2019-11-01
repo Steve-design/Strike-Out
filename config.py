@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> Development
 import os
 
 class Config:
@@ -52,10 +47,3 @@ config_options = {
 'development':DevConfig,
 'production':ProdConfig
 }  
-<<<<<<< HEAD
-
-=======
-=======
-import os
->>>>>>> master
->>>>>>> Development
