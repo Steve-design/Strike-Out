@@ -1,6 +1,8 @@
 ##  HEALTH APPLICATION
+
 ## Description
 This is a web application that allows users to create account by registering themselves into the appliaction.The user is thereby allowed to view health articles and aslo allowed to add any category of health articles of their choice. 
+
 
 ### By  a team of four members namely:
 * Steve Mwanza - Scrum master
