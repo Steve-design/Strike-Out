@@ -2,6 +2,7 @@ from flask import Blueprint
 
 main = Blueprint('main',__name__)
 
+<<<<<<< HEAD
 from . import views,errors
 
 
@@ -16,3 +17,10 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
     
     return app
+=======
+from . import views,error
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
+>>>>>>> Development

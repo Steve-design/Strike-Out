@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> Development
 from app import create_app, db
 from app.models import User, Comments, Article, UpVote,DownVote, ArticleCategory, Quote
 from flask_script import Manager,Server
@@ -10,6 +14,20 @@ manager = Manager(app)
 manager.add_command('server', Server)
 
 migrate = Migrate(app,db)
+=======
+from app import create_app,db
+from flask_script import Manager,Server
+from app.models import *
+from  flask_migrate import Migrate, MigrateCommand
+
+app = create_app('development')
+
+manager= Manager(app)
+migrate = Migrate(app,db)
+
+
+manager.add_command('server', Server)
+>>>>>>> master
 manager.add_command('db',MigrateCommand)
 
 @manager.command
@@ -21,9 +39,19 @@ def test():
 
 @manager.shell
 def make_shell_context():
+<<<<<<< HEAD
     return dict(app=app, db=db, User=User, Comments=Comments, Article=Article, ArticleCategory=ArticleCategory, Quote=Quote)   
 
 
 if __name__=='__main__':
     manager.run()    
+<<<<<<< HEAD
 
+=======
+=======
+    return dict(app = app,db = db,User = User )  
+
+if __name__=='__main__':
+    manager.run()      
+>>>>>>> master
+>>>>>>> Development
