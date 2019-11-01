@@ -28,17 +28,15 @@ def create_app(config_name):
 
 >>>>>>> master
     app = Flask(__name__)
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-    from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
 
 <<<<<<< HEAD
 =======
     
 >>>>>>> master
     app.config.from_object(config_options[config_name])
-
+    app.config['SECRET_KEY'] = '1234'
     configure_uploads(app, photos)
 
     bootstrap.init_app(app)
@@ -55,6 +53,8 @@ def create_app(config_name):
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/authenticate')
 
     return app
 <<<<<<< HEAD

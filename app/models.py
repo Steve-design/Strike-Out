@@ -32,8 +32,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True, index=True)
-    password_hash = db.Column(db.String(255))
-    pass_secure = db.Column(db.String(255))
+    pass_secure = db.Column( db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     categories = db.relationship("Article", backref="user1", lazy="dynamic")
@@ -41,16 +40,21 @@ class User(UserMixin, db.Model):
     upvotes = db.relationship("UpVote", backref="article2", lazy="dynamic")
     downvotes = db.relationship("DownVote", backref="article2", lazy="dynamic")
 
+   
     @property
     def password(self):
-        raise AttributeError('You can not read the password Attribute')
+        raise AttributeError('You cannot read the password attribute')
+
+    @password.setter
+    def password(self, password):
+        self.pass_secure = generate_password_hash(password)
 
     def verify_password(self, password):
         return check_password_hash(self.pass_secure, password)
 
     def __repr__(self):
-        return f'User {self.username}'
-
+        return f' {self.username}'
+        
 class ArticleCategory(db.Model):
 
     __tablename__ = 'categories'
@@ -168,4 +172,6 @@ class Quotes():
     def __init__(self,author,quote,permalink):
         self.author = author
         self.quote = quote
-        self.permalink = permalink          
+        self.permalink = permalink   
+        
+               
